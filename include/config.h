@@ -22,8 +22,16 @@ extern "C" {
 #define ETHERNET_GATEWAY 192,168,35,1
 #define ETHERNET_SUBNET  255,255,255,0
 
+
+#define SNMP_LOC_DESCR          "Server room monitoring"
+#define SNMP_LOC_CONTACT        "Oleg Dyakonov"
+#define SNMP_LOC_NAME           "Sensor DHT"
+#define SNMP_LOC_LOCATION       "Russia"
+
+
 #define WEB_SERVER_PORT 80
 #define WEB_SERVER_TITLE "Серверная комната 7-этаж"
+
 
 #define WDT_HARDWARE_TIMEOUT 2000
 #define WDT_REQUEST_TIMEOUT 70000

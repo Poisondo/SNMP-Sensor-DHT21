@@ -11,6 +11,7 @@
 #include "snmp.h"
 #include "stdint.h"
 #include "wdt.h"
+#include "config.h"
 
 //#include <Flash.h>
 
@@ -55,16 +56,16 @@ static char RoomAlertHeatIndexC[] PROGMEM     = "1.3.6.1.4.1.36582.3.0";   // re
 //
 //
 // RFC1213 local values
-static char locDescr[]              = "Server room monitoring";                 // read-only (static)
-static char locObjectID[]           = "1.3.6.1.4.1.36582.0";                       // read-only (static)
-static uint32_t locUpTime           = 0;                                        // read-only (static)
-static char locContact[20]          = "Oleg Dyakonov";                          // should be stored/read from EEPROM - read/write (not done for simplicity)
-static char locName[20]             = "DHT";                                    // should be stored/read from EEPROM - read/write (not done for simplicity)
-static char locLocation[20]         = "Russia";                                 // should be stored/read from EEPROM - read/write (not done for simplicity)
-static int32_t locServices          = 10;                                       // read-only (static)
-static int16_t TemperatureC         = 1111;                                     // read-only (static)
-static int16_t Humidity             = 2222;                                     // read-only (static)
-static int16_t HeatIndexC           = 3333;                                     // read-only (static)
+static char locDescr[]      = SNMP_LOC_DESCR;                 // read-only (static)
+static char locObjectID[]   = "1.3.6.1.4.1.36582.0";          // read-only (static)
+static uint32_t locUpTime   = 0;                              // read-only (static)
+static char locContact[]    = SNMP_LOC_CONTACT;               // should be stored/read from EEPROM - read/write (not done for simplicity)
+static char locName[]       = SNMP_LOC_NAME;                  // should be stored/read from EEPROM - read/write (not done for simplicity)
+static char locLocation[]   = SNMP_LOC_LOCATION;              // should be stored/read from EEPROM - read/write (not done for simplicity)
+static int32_t locServices  = 10;                             // read-only (static)
+static int16_t TemperatureC = 0;                              // read-only (static)
+static int16_t Humidity     = 0;                              // read-only (static)
+static int16_t HeatIndexC   = 0;                              // read-only (static)
 
 static uint32_t prevMillis = millis();
 char oid[SNMP_MAX_OID_LEN];
