@@ -24,7 +24,7 @@ snmpwalk -v 1 -c public 192.168.35.200
 
 snmpwalk -v 1 -c public 192.168.35.200 1.3.6.1.4.1.36582
 
-##### Get temperature cels:
+##### Get temperature сelsius:
 
 ###### request:
 snmpget -d -v 1 -r 1 -c public 192.168.35.200 1.3.6.1.4.1.36582.1.0
@@ -66,7 +66,7 @@ Received 53 byte packet from UDP: [192.168.35.200]:161->[0.0.0.0]:33548
 iso.3.6.1.4.1.36582.2.0 = INTEGER: 2660
 ```
 
-##### Get heat index cels:
+##### Get heat index сelsius:
 
 ###### request:
 snmpget -d -v 1 -r 1 -c public 192.168.35.200 1.3.6.1.4.1.36582.3.0
