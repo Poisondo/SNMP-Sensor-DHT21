@@ -13,6 +13,7 @@ The configuration in the file **include/config.h**
     1. STM32F103 Blue Pill
     2. Ethernet shield enc28j60
     3. Sensor DHT21
+    4. Water Sensor x 2
 
 ### Schematic:
 ![Schematic](schematic.png)
