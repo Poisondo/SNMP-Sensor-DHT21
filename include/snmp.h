@@ -19,6 +19,7 @@ extern "C" {
 #include "stdint.h"
 #include "config.h"
 #include "read_dht.h"
+#include "read_hw.h"
 
 /**
  * @brief Инициализация
@@ -36,7 +37,7 @@ uint8_t snmp_init(void);
  */
 uint8_t snmp_job(void);
 
-uint8_t snmp_set_params(dht_read_t *dht_read_r);
+uint8_t snmp_set_params (dht_read_t *dht_read_r, hw_read_t *hw_read_r);
 
 #ifdef __cplusplus
 }

@@ -50,7 +50,8 @@ static char RoomAlertTemperatureC[] PROGMEM   = "1.3.6.1.4.1.36582.1.0";   // re
 static char RoomAlertHumidity[] PROGMEM       = "1.3.6.1.4.1.36582.2.0";   // read-only  (Integer)
 // .iso.org.dod.internet.private.enterprise.arduino.HeatIndexC (.1.3.6.1.4.1.36582.3.0)
 static char RoomAlertHeatIndexC[] PROGMEM     = "1.3.6.1.4.1.36582.3.0";   // read-only  (Integer)
-
+// .iso.org.dod.internet.private.enterprise.arduino.HW12 (.1.3.6.1.4.1.36582.4.0)
+static char RoomAlertHW12[] PROGMEM           = "1.3.6.1.4.1.36582.4.0";   // read-only  (Integer)
 
 
 //
@@ -66,6 +67,7 @@ static int32_t locServices  = 10;                             // read-only (stat
 static int16_t TemperatureC = 0;                              // read-only (static)
 static int16_t Humidity     = 0;                              // read-only (static)
 static int16_t HeatIndexC   = 0;                              // read-only (static)
+static int16_t HW12         = 0;                              // read-only (static)
 
 static uint32_t prevMillis = millis();
 char oid[SNMP_MAX_OID_LEN];
@@ -133,8 +135,13 @@ void pduReceived()
         strcpy_P ( oid, RoomAlertHeatIndexC );  
         strcpy_P ( tmpOIDfs, RoomAlertHeatIndexC );        
         pdu.OID.fromString(tmpOIDfs);      
+      
+      } else if ( strcmp_P(oid, RoomAlertHeatIndexC ) == 0 ) {  
+        strcpy_P ( oid, RoomAlertHW12 );  
+        strcpy_P ( tmpOIDfs, RoomAlertHW12 );        
+        pdu.OID.fromString(tmpOIDfs);    
 
-      } else if ( strcmp_P(oid, RoomAlertHeatIndexC ) == 0 ) {   
+      } else if ( strcmp_P(oid, RoomAlertHW12 ) == 0 ) {   
         strcpy_P ( oid, "1.0" );  
 
       } else {
@@ -188,6 +195,11 @@ void pduReceived()
             }  else if ( strncmp_P(oid, RoomAlertHeatIndexC, ilen ) == 0 ) {
             strcpy_P ( oid, RoomAlertHeatIndexC ); 
             strcpy_P ( tmpOIDfs, RoomAlertHeatIndexC );        
+            pdu.OID.fromString(tmpOIDfs);  
+
+            }  else if ( strncmp_P(oid, RoomAlertHW12, ilen ) == 0 ) {
+            strcpy_P ( oid, RoomAlertHW12 ); 
+            strcpy_P ( tmpOIDfs, RoomAlertHW12 );        
             pdu.OID.fromString(tmpOIDfs);  
 
             }        
@@ -328,7 +340,19 @@ void pduReceived()
         pdu.error = status;
       }
       //
-
+    } else if ( strcmp_P(oid, RoomAlertHW12) == 0 ) {
+      // handle RoomAlertHW12 (set/get) requests
+      if ( pdu.type == SNMP_PDU_SET ) {
+        // response packet from set-request - object is read-only
+        pdu.type = SNMP_PDU_RESPONSE;
+        pdu.error = SNMP_ERR_READ_ONLY;
+      } else {
+        // response packet from get-request - HW12
+        status = pdu.VALUE.encode(SNMP_SYNTAX_INT, HW12);
+        pdu.type = SNMP_PDU_RESPONSE;
+        pdu.error = status;
+      }
+      //
     } else {
       // oid does not exist
       // response packet - object not found
@@ -378,9 +402,11 @@ uint8_t snmp_job() {
   return 0;
 }
 
-uint8_t snmp_set_params (dht_read_t *dht_read_r){
+uint8_t snmp_set_params (dht_read_t *dht_read_r, hw_read_t *hw_read_r)
+{
     TemperatureC = dht_read_r->dht_temperature * 100;
     Humidity = dht_read_r->dht_humidity * 100;
     HeatIndexC = dht_read_r->dht_hic * 100;
+    HW12 = hw_read_r->hw_1 * 100 + hw_read_r->hw_2 * 200; 
     return 0;
 }

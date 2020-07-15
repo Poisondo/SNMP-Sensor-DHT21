@@ -30,13 +30,13 @@ uint8_t ethernet_init(ethernet_config_t *config){
 
     Ethernet.begin(config->mac, config->ip, config->dns, config->gateway, config->subnet);
     snmp_init();
-    web_server_init();
+    //web_server_init();
     return 0;
 }
 
 uint8_t ethernet_job(){
   
   snmp_job();
-  web_server_job();
+  //web_server_job();
   return 0;
 }

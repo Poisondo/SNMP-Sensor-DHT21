@@ -8,7 +8,6 @@
 
 #include "read_dht.h"
 #include "config.h"
-
 #include "DHT.h"
 
 DHT dht(DHT_PIN, DHT_TYPE);

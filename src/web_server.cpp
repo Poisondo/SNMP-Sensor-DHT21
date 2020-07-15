@@ -155,9 +155,9 @@ uint8_t web_server_job(void){
                     flagEmptyLine = false;
                 }
             }
+            wdt_reset_request();
+            delay(1);
         }
-        wdt_reset_request();
-        delay(1);
         // разрываем соединение
         client.stop();
         Serial.println("Break");
