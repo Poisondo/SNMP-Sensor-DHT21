@@ -1,6 +1,6 @@
 # SNMP-Sensor-DHT21
 
-Humidity and temperature sensor for server room.
+Humidity, temperature and water leak sensor for server room.
 
 Works on SNMP and HTTP protocols
 
@@ -88,19 +88,32 @@ Received 53 byte packet from UDP: [192.168.35.200]:161->[0.0.0.0]:41763
 iso.3.6.1.4.1.36582.3.0 = INTEGER: 1337
 ```
 
-### HTTP:
+##### Get water leak sensor:
 
-http://192.168.35.200
-
-### JSON:
-
-http://192.168.35.200/json/
+###### request:
+snmpget -d -v 1 -r 1 -c public 192.168.35.200 1.3.6.1.4.1.36582.4.0
 
 ###### response:
-```json
-{
-    "TemperatureC":16.20,
-    "Humidity":25.90,
-    "HeatIndexC":14.55
-}
+```
+Sending 45 bytes to UDP: [192.168.41.50]:161->[0.0.0.0]:0
+0000: 30 2B 02 01  00 04 06 70  75 62 6C 69  63 A0 1E 02    0+.....public...
+0016: 04 6F C7 66  C6 02 01 00  02 01 00 30  10 30 0E 06    .o.f.......0.0..
+0032: 0A 2B 06 01  04 01 82 9D  66 04 00 05  00             .+......f....
+
+
+Received 53 byte packet from UDP: [192.168.41.50]:161->[0.0.0.0]:41562
+0000: 30 33 02 01  00 04 06 70  75 62 6C 69  63 A2 26 02    03.....public.&.
+0016: 04 6F C7 66  C6 02 04 00  00 00 00 02  04 00 00 00    .o.f............
+0032: 00 30 12 30  10 06 0A 2B  06 01 04 01  82 9D 66 04    .0.0...+......f.
+0048: 00 02 02 00  00                                       .....
+```
+
+iso.3.6.1.4.1.36582.4.0 = INTEGER: 0
+
+###### return:
+```
+0   - OK
+100 - water leak sensor 1
+200 - water leak sensor 2
+300 - water leak sensor 1 and 2
 ```

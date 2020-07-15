@@ -36,8 +36,8 @@ extern "C" {
 #define SNMP_LOC_LOCATION       "Russia"
 
 
-#define WEB_SERVER_PORT 80
-#define WEB_SERVER_TITLE "Серверная комната 7-этаж"
+// #define WEB_SERVER_PORT 80
+// #define WEB_SERVER_TITLE "Серверная комната 7-этаж"
 
 
 #define WDT_HARDWARE_TIMEOUT 2000
