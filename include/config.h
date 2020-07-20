@@ -13,7 +13,8 @@ extern "C" {
 #endif
 //датчик температуры и влажности
 #define DHT_PIN     PB0
-#define DHT_TYPE    DHT21   // DHT 21 (AM2301)
+//#define DHT_TYPE    DHT21   // DHT 21 (AM2301)
+#define DHT_TYPE    DHT11   // DHT 21 (AM2301)
 //датчики протечки
 #define HW_1_PIN    PA2
 #define HW_2_PIN    PA3
@@ -25,7 +26,7 @@ extern "C" {
 #define ETHERNET_GATEWAY 192,168,35,1
 #define ETHERNET_SUBNET  255,255,255,0
 
-// #define ETHERNET_IP      192,168,41,50
+// #define ETHERNET_IP      192,168,41,51
 // #define ETHERNET_DNS     192,168,35,16
 // #define ETHERNET_GATEWAY 192,168,41,1
 // #define ETHERNET_SUBNET  255,255,255,0
@@ -36,8 +37,8 @@ extern "C" {
 #define SNMP_LOC_LOCATION       "Russia"
 
 
-// #define WEB_SERVER_PORT 80
-// #define WEB_SERVER_TITLE "Серверная комната 7-этаж"
+#define WEB_SERVER_PORT 80
+#define WEB_SERVER_TITLE "Серверная комната 7-этаж"
 
 
 #define WDT_HARDWARE_TIMEOUT 2000

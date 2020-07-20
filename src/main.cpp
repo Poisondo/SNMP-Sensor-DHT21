@@ -2,7 +2,7 @@
 #include "read_dht.h"
 #include "ethernet.h"
 #include "snmp.h"
-#include "web_server.h"
+//#include "web_server.h"
 #include "wdt.h"
 #include "read_hw.h"
 
@@ -38,7 +38,11 @@ void loop()
     hw_read(&hw_read_r);
     snmp_set_params(&dht_read_r, &hw_read_r);
     //web_server_set_params(&dht_read_r);
-    Serial.println("hw_dht_read");
+    Serial.print("dht_read: humidity: ");
+    Serial.print(dht_read_r.dht_humidity, 1);
+    Serial.print(",\t");
+    Serial.print("temperature: ");
+    Serial.println(dht_read_r.dht_temperature, 1);
     if (hw_read_r.hw_1) Serial.println("hw_1 true");
     if (hw_read_r.hw_2) Serial.println("hw_2 true");
   }

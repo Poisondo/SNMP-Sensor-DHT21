@@ -11,7 +11,7 @@
 #include "config.h"
 #include "ethernet.h"
 #include "snmp.h"
-#include "web_server.h"
+//#include "web_server.h"
 
 
 uint8_t ethernet_init_default(){
